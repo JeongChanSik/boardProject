@@ -17,7 +17,7 @@ public class CommonException extends RuntimeException{
     }
 
     // 공통 예외고 상태 관리를 위해서 추가함
-    private HttpStatus getStatus() {
+    public HttpStatus getStatus() {
         return status;
 
     }
