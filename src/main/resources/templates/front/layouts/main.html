@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
-
     <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}">
     <link rel="stylesheet" type="text/css" th:each="file : ${addCommonCss}"
           th:href="@{/common/css/{file}.css(file=${file})}">
@@ -17,7 +16,6 @@
 
     <script th:src="@{/common/js/common.js}"></script>
     <script th:each="file : ${addCommonScript}" th:src="@{/common/js/{file}.js(file=${file})}"></script>
-
     <script th:src="@{/front/js/common.js}"></script>
     <script th:each="file : ${addScript}" th:src="@{/front/js/{file}.js(file=${file})}"></script>
 
@@ -25,9 +23,9 @@
 
 </head>
 <body>
-<header th:replace="~{front/outlines/header::common}"></header>
+<header th:replace="~{/front/outlines/header::common}"></header>
 <main layout:fragment="content"></main>
-<footer th:replace="~{front/outlines/footer::common}"></footer>
+<footer th:replace="~{/front/outlines/footer::common}"></footer>
 <iframe name="ifrmProcess" class="dn"></iframe>
 </body>
 </html>

@@ -22,7 +22,7 @@ public class MemberInfoService implements UserDetailsService {
 
         return MemberInfo.builder()
                 .email(member.getEmail())
-                .password(member.getPassword()) // 해쉬가 되어있는 비번
+                .password(member.getPassword()) // 해쉬가 되어 있는 비번
                 .member(member)
                 .build();
     }

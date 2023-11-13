@@ -19,6 +19,12 @@ public class MemberController {
         return utils.tpl("member/join");
     }
 
+    // post는 security가 대신 해주기 때문에 안해도 된다.
+    @GetMapping("/login")
+    public String login() {
+        return utils.tpl("member/login");
+    }
+
 }
 
 
