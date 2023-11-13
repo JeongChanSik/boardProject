@@ -11,21 +11,19 @@ public class CommonInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         init(request);
+
         return true;
     }
-
     // 초기화 작업
     private void init(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        /* PC, Mobile 수동 변경 처리 Start*/
+        /* PC, Mobile 수동 변경 처리 Start */
         String device = request.getParameter("device");
-        if(device != null && !device.isBlank()) {
-           session.setAttribute("deivce", device.toLowerCase()
-                   .equals("MOBILE") ? "mobile" : "pc");
+        if (device != null && !device.isBlank()) {
+            session.setAttribute("device", device.toLowerCase().equals("mobile")?"mobile":"pc");
         }
-
-        /* PC, Mobile 수동 변경 처리 End*/
+        /* PC, Mobile 수동 변경 처리 End */
 
     }
 }
