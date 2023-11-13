@@ -3,6 +3,7 @@ package com.semiproject.controllers.members;
 import com.semiproject.commons.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,8 @@ public class MemberController {
 
     // post는 security가 대신 해주기 때문에 안해도 된다.
     @GetMapping("/login")
-    public String login() {
+    public String login(String redirectURL, Model model) {
+        model.addAttribute("redirectURL", redirectURL);
         return utils.tpl("member/login");
     }
 

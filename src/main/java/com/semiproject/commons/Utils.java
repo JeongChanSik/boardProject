@@ -55,4 +55,10 @@ public class Utils {
         return path;
     }
 
+    public static void loginInit(HttpSession session) {
+        session.removeAttribute("email");
+        session.removeAttribute("NotBlank_email");
+        session.removeAttribute("NotBlank_password");
+        session.removeAttribute("globalError");
+    }
 }
