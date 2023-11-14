@@ -1,5 +1,6 @@
 package com.semiproject.entities;
 
+import com.semiproject.commons.constant.MemberType;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -18,6 +19,8 @@ public class Member {
     private String userNm;
 
     private String mobile;
+
+    private MemberType mtype = MemberType.USER;
 
     private LocalDateTime regDt;
     private LocalDateTime modDt;
