@@ -23,16 +23,16 @@ public class BoardData {
     @Column(length = 100, nullable = false)
     private String subject;
 
-    @Lob
+    @Lob // 라지Object CharacterLargeObject
     @Column(nullable = false)
     private String content;
 
     @Column(updatable = false)
-    @CreationTimestamp
+    @CreationTimestamp // insert 쿼리할 때 현재 날짜 시간이 주입됨
     private LocalDateTime regDt;
 
     @Column(insertable = false)
-    @UpdateTimestamp
+    @UpdateTimestamp // update 쿼리할 때 현재 날짜 시간이 주입됨
     private LocalDateTime modDt;
 
 
