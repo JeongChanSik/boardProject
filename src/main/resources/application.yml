@@ -9,6 +9,18 @@ spring:
     username: BOARD
     password: 1111
 
+  #JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        # show_sql : 실행되는 쿼리를 콘솔에 출력하는 역할
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddlAuto: create
+
   # 파일 업로드 설정
   servlet:
     multipart:
@@ -29,6 +41,9 @@ spring:
     cache: false
     prefix: file:src/main/resources/templates/
 
+  flyway:
+    enabled: true
+
 
 file:
   upload:
@@ -40,6 +55,8 @@ file:
 logging:
   level:
     org:
-      springframework:
-        jdbc: trace
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
 
