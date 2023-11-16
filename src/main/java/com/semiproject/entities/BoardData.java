@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor
-public class BoardData {
+public class BoardData extends Base{
 
     @Id
     @GeneratedValue
@@ -27,13 +27,7 @@ public class BoardData {
     @Column(nullable = false)
     private String content;
 
-    @Column(updatable = false)
-    @CreationTimestamp // insert 쿼리할 때 현재 날짜 시간이 주입됨
-    private LocalDateTime regDt;
 
-    @Column(insertable = false)
-    @UpdateTimestamp // update 쿼리할 때 현재 날짜 시간이 주입됨
-    private LocalDateTime modDt;
 
 
 }

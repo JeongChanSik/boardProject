@@ -6,6 +6,7 @@ import com.semiproject.entities.Member;
 import com.semiproject.models.member.MemberInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,10 +45,15 @@ public class MemberController {
     @GetMapping("/info")
     public void info() {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+        System.out.println("principal : " + principal);
+
         Member member = memberUtil.getMember();
         if(memberUtil.isLogin()) {
             log.info(member.toString()); // 회원정보 출력
         }
+
 
         log.info("로그인 여부 : {}", memberUtil.isLogin());
     }
