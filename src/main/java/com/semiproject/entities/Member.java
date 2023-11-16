@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
         @Index(name = "idx_member_userNm", columnList = "userNm"),
         @Index(name = "idx_member_mobile", columnList = "mobile")
 })
-public class Member {
+public class Member extends Base{
     /* JPA에서는 @Id를 반드시 입력해줘야 한다. */
     @Id @GeneratedValue(strategy = GenerationType.AUTO) // (strategy = GenerationType.AUTO) 기본값
     private Long userNo;
@@ -37,8 +37,6 @@ public class Member {
     @Column(length = 10, nullable = false) // nullable false로 할 경우 not null
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
-
-
 
     /* 거의 안 씀
     @Temporal(TemporalType.DATE)

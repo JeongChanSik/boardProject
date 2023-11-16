@@ -2,8 +2,10 @@ package com.semiproject.controllers.members;
 
 import com.semiproject.commons.MemberUtil;
 import com.semiproject.commons.Utils;
+import com.semiproject.entities.BoardData;
 import com.semiproject.entities.Member;
 import com.semiproject.models.member.MemberInfo;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,7 @@ public class MemberController {
 
     private final Utils utils;
     private final MemberUtil memberUtil;
+    private final EntityManager em;
 
     // 회원가입
     @GetMapping("/join")
@@ -45,7 +48,17 @@ public class MemberController {
     @GetMapping("/info")
     public void info() {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        BoardData data = BoardData.builder()
+                .subject("제목")
+                .content("내용")
+                .build();
+        em.persist(data);
+        em.flush();
+
+        data.setSubject("(수정)제목");
+        em.flush();
+
+        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
         System.out.println("principal : " + principal);
 
@@ -55,7 +68,7 @@ public class MemberController {
         }
 
 
-        log.info("로그인 여부 : {}", memberUtil.isLogin());
+        log.info("로그인 여부 : {}", memberUtil.isLogin());*/
     }
 
 

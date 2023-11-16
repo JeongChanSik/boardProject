@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor
-public class BoardData extends Base{
+public class BoardData extends BaseMember{
 
     @Id
     @GeneratedValue
@@ -23,11 +23,8 @@ public class BoardData extends Base{
     @Column(length = 100, nullable = false)
     private String subject;
 
-    @Lob // 라지Object CharacterLargeObject
+    @Lob // 라지 Object CharacterLargeObject
     @Column(nullable = false)
     private String content;
-
-
-
 
 }

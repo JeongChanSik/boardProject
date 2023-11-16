@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class Base {
+public abstract class Base {
     @Column(updatable = false)
     @CreatedDate
     //@CreationTimestamp : insert 쿼리할 때 현재 날짜 시간이 주입됨
