@@ -40,8 +40,13 @@ public class Member extends Base{
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
 
-    @OneToMany(mappedBy = "member") // mappedBy : 주인 명시해주는 역할
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER) // mappedBy : 주인 명시해주는 역할
     private List<BoardData> items = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "profile_seq")
+    private MemberProfile profile;
 
 
     /* 거의 안 씀
