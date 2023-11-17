@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -26,5 +28,9 @@ public class BoardData extends BaseMember{
     @Lob // 라지 Object CharacterLargeObject
     @Column(nullable = false)
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY : 지연 로딩 필요할 때만 쿼리를 실행한다.
+    @JoinColumn(name = "userNo")
+    private Member member;
 
 }
