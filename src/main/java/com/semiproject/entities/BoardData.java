@@ -27,4 +27,8 @@ public class BoardData extends BaseMember{
     @Column(nullable = false)
     private String content;
 
+
+    @ManyToOne
+    @JoinColumn(name = "userNo")
+    private Member member;
 }

@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -37,6 +39,10 @@ public class Member extends Base{
     @Column(length = 10, nullable = false) // nullable false로 할 경우 not null
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
+
+    @OneToMany(mappedBy = "member") // mappedBy : 주인 명시해주는 역할
+    private List<BoardData> items = new ArrayList<>();
+
 
     /* 거의 안 씀
     @Temporal(TemporalType.DATE)
