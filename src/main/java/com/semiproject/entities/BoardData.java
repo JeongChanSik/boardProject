@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -27,8 +29,11 @@ public class BoardData extends BaseMember{
     @Column(nullable = false)
     private String content;
 
-
     @ManyToOne
     @JoinColumn(name = "userNo")
     private Member member;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<HashTag> tags = new ArrayList<>();
+
 }
