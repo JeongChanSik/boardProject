@@ -1,81 +1,50 @@
 package com.semiproject.jpaex;
 
 import com.semiproject.commons.constant.MemberType;
+import com.semiproject.entities.BoardData;
 import com.semiproject.entities.Member;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import com.semiproject.repositories.BoardDataRepository;
+import com.semiproject.repositories.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
-// @TestPropertySource(activeProfiles="test")
+//@TestPropertySource(properties = "spring.profiles.active=test")
 public class Ex01 {
+    @Autowired
+    private BoardDataRepository boardDataRepository;
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @BeforeEach
     void init() {
-        Member member = new Member();
-        // member.setUserNo(1L);
-        member.setEmail("user01@test.org");
-        member.setUserNm("사용자01");
-        member.setPassword("_aA123456");
-        member.setMobile("01012341234");
-        member.setMtype(MemberType.USER);
+        Member member = Member.builder()
+                .email("user01@test.org")
+                .password("123456")
+                .userNm("사용자01")
+                .mtype(MemberType.USER)
+                .build();
 
-        em.persist(member); /* INSERT 쿼리 변화 감지 상태 */
-        em.flush(); /* 커밋 */
-        em.clear(); // 영속성 비우기
-    }
+        memberRepository.saveAndFlush(member);
 
-    @Test
-    void test2() {
-        Member member = em.find(Member.class, 1L); // DB -> 영속성 컨텍스트로 추가
-        System.out.println(member);
-
-        Member member2 = em.find(Member.class, 1L); // 영속성 컨텍스트에서 조회한다.
-        System.out.println(member2);
-
-        TypedQuery<Member> query = em.createQuery("SELECT m FROM Users AS m WHERE m.email LIKE :key", Member.class); // m 은 *과 같다.
-        query.setParameter("key", "%user%");
-
-        Member member3 = query.getSingleResult();
-        member3.setUserNm("(수정)사용자01");
-        em.flush();
-        System.out.println(member3);
+        BoardData item = BoardData.builder()
+                .subject("제목")
+                .content("내용")
+                .member(member)
+                .build();
+        boardDataRepository.saveAndFlush(item);
     }
 
     @Test
     void test1() {
-        Member member = new Member();
-        // member.setUserNo(1L);
-        member.setEmail("user01@test.org");
-        member.setUserNm("사용자01");
-        member.setPassword("_aA123456");
-        member.setMobile("01012341234");
-        member.setMtype(MemberType.USER);
+        BoardData data = boardDataRepository.findById(1L).orElse(null);
 
-        em.persist(member); /* INSERT 쿼리 변화 감지 상태 */
-        em.flush(); /* 커밋 */
-
-        member.setUserNm("(수정)사용자01"); /* UPDATE 쿼리 영속성 분리, 변화 감지 하지 않음 */
-        em.flush(); /* 커밋 */
-
-        em.merge(member); // 분리된 영속 상태 -> 영속 상태, 변화 감지 함
-        em.flush();
-
-        /* em.remove(member);
-        em.flush(); */
-    }
-
-    @Test
-    void test3() {
-
+        Member member = data.getMember();
+        String email = member.getEmail(); //2차 쿼리 실행
+        System.out.println(email);
     }
 }

@@ -29,11 +29,8 @@ public class BoardData extends BaseMember{
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY : 지연 로딩 필요할 때만 쿼리를 실행한다.
     @JoinColumn(name = "userNo")
     private Member member;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<HashTag> tags = new ArrayList<>();
 
 }
