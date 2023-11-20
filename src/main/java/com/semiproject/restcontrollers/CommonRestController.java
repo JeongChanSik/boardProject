@@ -1,6 +1,6 @@
 package com.semiproject.restcontrollers;
 
-import com.semiproject.commons.exception.CommonException;
+import com.semiproject.commons.exceptions.CommonException;
 import com.semiproject.commons.rest.JSONData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

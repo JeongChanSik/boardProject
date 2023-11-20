@@ -1,6 +1,6 @@
 package com.semiproject.entities;
 
-import com.semiproject.commons.constant.MemberType;
+import com.semiproject.commons.constants.MemberType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

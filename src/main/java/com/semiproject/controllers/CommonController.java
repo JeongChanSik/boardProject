@@ -1,6 +1,6 @@
 package com.semiproject.controllers;
 
-import com.semiproject.commons.exception.CommonException;
+import com.semiproject.commons.exceptions.CommonException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

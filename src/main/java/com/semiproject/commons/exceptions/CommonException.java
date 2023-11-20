@@ -1,6 +1,5 @@
-package com.semiproject.commons.exception;
+package com.semiproject.commons.exceptions;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 public class CommonException extends RuntimeException{
