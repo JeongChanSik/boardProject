@@ -5,20 +5,26 @@ import com.semiproject.entities.BoardData;
 import com.semiproject.entities.Member;
 import com.semiproject.repositories.BoardDataRepository;
 import com.semiproject.repositories.MemberRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-//@TestPropertySource(properties = "spring.profiles.active=test")
+@TestPropertySource(properties = "spring.profiles.active=test")
+@Transactional
 public class Ex01 {
     @Autowired
     private BoardDataRepository boardDataRepository;
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private EntityManager em;
 
     @BeforeEach
     void init() {
@@ -37,6 +43,7 @@ public class Ex01 {
                 .member(member)
                 .build();
         boardDataRepository.saveAndFlush(item);
+        em.clear();
     }
 
     @Test
