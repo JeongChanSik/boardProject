@@ -9,16 +9,17 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@MappedSuperclass @Getter @Setter
+@Getter @Setter
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseMember extends Base{
 
     @CreatedBy
     @Column(length = 65, updatable = false)
-    private String createdBy; // 생성한 사람
+    private String createdBy;
 
     @LastModifiedBy
     @Column(length = 65, insertable = false)
-    private String modifiedBy; // 수정한 사람
+    private String modifiedBy;
 
 }

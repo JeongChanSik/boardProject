@@ -10,6 +10,7 @@ import java.util.Collection;
 
 @Data @Builder
 public class MemberInfo implements UserDetails {
+
     private String email;
     private String password;
 
@@ -39,8 +40,10 @@ public class MemberInfo implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+
         return true;
     }
+
 
     @Override
     public boolean isCredentialsNonExpired() {

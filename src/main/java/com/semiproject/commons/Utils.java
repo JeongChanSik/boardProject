@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 @Component
 @RequiredArgsConstructor
+
 public class Utils {
     private static ResourceBundle validationsBundle;
     private static ResourceBundle errorsBundle;
@@ -23,30 +24,35 @@ public class Utils {
         errorsBundle = ResourceBundle.getBundle("messages.errors");
     }
 
-    public static String getMessage(String code, String bundleType) {
-        bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
+    public static String getMessage(String code, String bundleType){
+        bundleType = Objects.requireNonNull(bundleType, "validation");
+        ResourceBundle bundle = bundleType.equals("error") ? errorsBundle : validationsBundle;
         try {
             return bundle.getString(code);
-        } catch (Exception e) {
+        } catch (Exception e){
+
             return null;
         }
     }
 
     public boolean isMobile() {
+
         String device = (String)session.getAttribute("device");
-        if (device != null) {
+        if(device != null) {
             return device.equals("mobile");
         }
 
-        boolean isMobile = request.getHeader("User-Agent").matches(".*(iPhone|iPod|iPad|BlackBerry|Android|Windows CE|LG|MOT|SAMSUNG|SonyEricsson).*");
+        // 요청 헤더 User-Agent
+        boolean isMobile = request.getHeader("User-Agent")
+                .matches(".*(iPhone|iPod|iPad|BlackBerry|Android|Windows" +
+                        " CE|LG|MOT|SAMSUNG|SonyEricsson).*");
 
         return isMobile;
     }
 
     public String tpl(String tplPath) {
-
-        return String.format("%s/" + tplPath, isMobile()?"mobile":"front");
+        String path = String.format("%s/" + tplPath, isMobile() ? "mobile" : "front");
+        return path;
     }
 
     public static void loginInit(HttpSession session) {

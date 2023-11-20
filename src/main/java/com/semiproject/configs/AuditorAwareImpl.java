@@ -9,17 +9,21 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class AuditorAwareImpl implements AuditorAware<String> {
+public class AuditorAwareImpl implements AuditorAware {
     @Override
     public Optional<String> getCurrentAuditor() {
 
         String email = null;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null && auth.getPrincipal() instanceof MemberInfo){
-            MemberInfo memberInfo = (MemberInfo)auth.getPrincipal();
-            email = memberInfo.getEmail();
-        }
-        return Optional.ofNullable(email);
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+
+        if(auth != null && auth.getPrincipal() instanceof MemberInfo) {
+            //Object principal = auth.getPrincipal(); // 비회원 - String(문자열) : anonymousUser, 회원 - UserDetails 구현 객체
+            MemberInfo member = (MemberInfo) auth.getPrincipal();
+            email = member.getEmail();
+        }
+
+        return Optional.ofNullable(email);
     }
 }
