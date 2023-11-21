@@ -32,7 +32,7 @@ public class MemberController implements CommonProcess {
 
     @PostMapping("/join")
     public String joinps(@Valid RequestJoin form, Errors errors, Model model) {
-        commonProcess(model, "회원가입");
+        commonProcess(model, Utils.getMessage("회원가입", "common"));
         saveService.join(form, errors);
         if(errors.hasErrors()) {
             return utils.tpl("member/join");
@@ -42,7 +42,7 @@ public class MemberController implements CommonProcess {
 
     @GetMapping("/login")
     public String login(String redirectURL, Model model) {
-        commonProcess(model, "로그인");
+        commonProcess(model, Utils.getMessage("로그인", "common"));
 
         model.addAttribute("redirectURL", redirectURL);
 

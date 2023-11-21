@@ -29,7 +29,16 @@ public class Utils {
 
     public static String getMessage(String code, String bundleType){
         bundleType = Objects.requireNonNull(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error") ? errorsBundle : validationsBundle;
+
+        ResourceBundle bundle = null;
+        if(bundleType.equals("common")){
+            bundle = commonsBundle;
+        } else if (bundleType.equals("error")) {
+            bundle = errorsBundle;
+        } else {
+            bundle = validationsBundle;
+        }
+
         try {
             return bundle.getString(code);
         } catch (Exception e){
