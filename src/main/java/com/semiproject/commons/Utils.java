@@ -15,6 +15,8 @@ public class Utils {
     private static ResourceBundle validationsBundle;
     private static ResourceBundle errorsBundle;
 
+    private static ResourceBundle commonsBundle;
+
     private final HttpServletRequest request;
 
     private final HttpSession session;
@@ -22,6 +24,7 @@ public class Utils {
     static {
         validationsBundle = ResourceBundle.getBundle("messages.validations");
         errorsBundle = ResourceBundle.getBundle("messages.errors");
+        commonsBundle = ResourceBundle.getBundle("messages.commons");
     }
 
     public static String getMessage(String code, String bundleType){

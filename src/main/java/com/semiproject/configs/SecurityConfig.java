@@ -54,6 +54,23 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c -> {
            c.requestMatchers("/mypage/**").authenticated() // 회원 전용(로그인 한 회원만 접근 가능)
                    .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 권한만 접근 가능
+                   .requestMatchers("/front/css/**",
+                           "/front/js/**",
+                           "/front/images/**",
+
+                           "/mobile/css/**",
+                           "/mobile/js/**",
+                           "/mobile/images/**",
+
+                           "/admin/css/**",
+                           "/admin/js/**",
+                           "/admin/images/**",
+
+                           "/common/css/**",
+                           "/common/js/**",
+                           "/common/images/**",
+                           fileUploadConfig.getUrl() + "**"
+                   ).permitAll()
                    .anyRequest().permitAll(); // 나머지 페이지는 권한 필요가 없다.
         });
 
@@ -74,29 +91,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // 시큐리티 설정이 적용될 필요가 없는 경로 설정
-        return w -> w.ignoring().requestMatchers("/front/css/**",
-                "/front/js/**",
-                "/front/images/**",
-
-                "/mobile/css/**",
-                "/mobile/js/**",
-                "/mobile/images/**",
-
-                "/admin/css/**",
-                "/admin/js/**",
-                "/admin/images/**",
-
-                "/common/css/**",
-                "/common/js/**",
-                "/common/images/**",
-                fileUploadConfig.getUrl() + "**");
-        }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

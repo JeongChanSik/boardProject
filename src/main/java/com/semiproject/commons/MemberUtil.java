@@ -1,5 +1,6 @@
 package com.semiproject.commons;
 
+import com.semiproject.commons.constants.MemberType;
 import com.semiproject.entities.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,14 @@ public class MemberUtil {
          // 로그인 형태 리턴, null이면 로그인이 안 된다.
          return getMember() != null;
      }
+
+    /**
+     * 관리자 여부 체크
+     * @return
+     */
+    public boolean isAdmin() {
+        return isLogin() && getMember().getMtype() == MemberType.ADMIN;
+    }
 
      public Member getMember() {
          return (Member)session.getAttribute("loginMember");
