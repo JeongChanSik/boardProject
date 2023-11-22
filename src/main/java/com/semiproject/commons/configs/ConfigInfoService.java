@@ -26,29 +26,23 @@ public class ConfigInfoService {
 
     public <T> T get(String code, Class<T> clazz, TypeReference<T> typeReference) {
 
+        Configs config = repository.findById(code).orElse(null);
+        if (config == null || StringUtils.hasText(config.getValue())) {
+            return null;
+        }
+
+        String json = config.getValue();
+
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+
         try {
-            Configs configs = repository.findById(code).orElse(null);
-            if (configs == null || StringUtils.hasText(configs.getValue())) {
-                return null;
-            }
+            T data = clazz == null ? om.readValue(json, typeReference) : om.readValue(json, clazz);
 
-            String json = configs.getValue();
+            return data;
 
-            ObjectMapper om = new ObjectMapper();
-            om.registerModule(new JavaTimeModule());
-
-
-            try {
-                T data = clazz == null ? om.readValue(json, typeReference) : om.readValue(json, clazz);
-                 return data;
-
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-                return null;
-            }
-
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
             return null;
         }
     }

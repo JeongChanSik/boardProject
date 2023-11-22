@@ -27,6 +27,7 @@ public class BasicConfigController implements CommonProcess {
 
         ConfigForm form = infoService.get(code, ConfigForm.class);
         form = form == null ? new ConfigForm() : form;
+        System.out.println(form);
         model.addAttribute("configForm", form);
 
         return "admin/basic/index";
