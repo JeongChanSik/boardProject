@@ -1,6 +1,7 @@
 package com.semiproject.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Base {
     @Column(updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreatedDate
     //@CreationTimestamp : insert 쿼리할 때 현재 날짜 시간이 주입됨
     private LocalDateTime createdAt;
