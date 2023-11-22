@@ -20,7 +20,7 @@ import java.util.List;
         @Index(name = "idx_member_mobile", columnList = "mobile")
 })
 public class Member extends Base{
-    /* JPA에서는 @Id를 반드시 입력해줘야 한다. */
+    /* JPA 에서는 @Id를 반드시 입력 해줘야 한다. */
     @Id @GeneratedValue(strategy = GenerationType.AUTO) // (strategy = GenerationType.AUTO) 기본값
     private Long userNo;
 
