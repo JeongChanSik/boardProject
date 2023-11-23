@@ -27,6 +27,29 @@
                 </span>
             </td>
         </tr>
+        <tr>
+            <th>글쓰기 권한</th>
+            <td>
+                <span>
+                    <input type="radio" name="authority" value="ALL" id="authority_all">
+                    <label for="authority_all">전체(비회원 + 회원 + 관리자)</label>
+                </span>
+                <span>
+                    <input type="radio" name="authority" value="MEMBER" id="authority_member">
+                    <label for="authority_member">회원</label>
+                </span>
+                <span>
+                    <input type="radio" name="authority" value="ADMIN" id="authority_admin">
+                    <label for="authority_admin">관리자</label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>분류</th>
+            <td>
+                <textarea name="category" placeholder="분류가 여러 개인 경우는 엔터 키를 눌러서 줄개행 하세요."></textarea>
+            </td>
+        </tr>
     </table>
 </th:block>
 </html>
