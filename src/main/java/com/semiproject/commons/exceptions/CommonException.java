@@ -1,7 +1,11 @@
 package com.semiproject.commons.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+@Setter
+@Getter
 public class CommonException extends RuntimeException{
 
     private HttpStatus status;
@@ -15,9 +19,4 @@ public class CommonException extends RuntimeException{
         this.status = status;
     }
 
-    // 공통 예외고 상태 관리를 위해서 추가함
-    public HttpStatus getStatus() {
-        return status;
-
-    }
 }
