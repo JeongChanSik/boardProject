@@ -1,6 +1,8 @@
 package com.semiproject.controllers.admins;
 
+import com.semiproject.commons.ScriptExceptionProcess;
 import com.semiproject.commons.menus.Menu;
+import com.semiproject.models.board.config.BoardConfigSaveService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +16,10 @@ import java.util.Objects;
 @Controller("adminBoardController")
 @RequestMapping("/admin/board")
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController implements ScriptExceptionProcess {
 
     private final HttpServletRequest request;
+    private final BoardConfigSaveService saveService;
 
     @GetMapping
     public String list(Model model) {
@@ -48,6 +51,7 @@ public class BoardController {
             return "admin/board/" + mode;
         }
 
+        saveService.save(form);
         return "redirect:/admin/board";
     }
 
