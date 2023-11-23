@@ -2,13 +2,12 @@ package com.semiproject.controllers.admins;
 
 import com.semiproject.commons.menus.Menu;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -27,7 +26,7 @@ public class BoardController {
     }
 
     @GetMapping("/add")
-    public String register(Model model) {
+    public String register(@ModelAttribute BoardConfigForm form, Model model) {
         commonProcess("add", model);
 
         return "admin/board/add";
@@ -41,7 +40,13 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save() {
+    public String save(@Valid BoardConfigForm form, Errors errors) {
+
+        String mode = form.getMode();
+
+        if(errors.hasErrors()) {
+
+        }
 
         return "redirect:/admin/board";
     }
