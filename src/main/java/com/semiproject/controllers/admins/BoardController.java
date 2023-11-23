@@ -40,12 +40,12 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid BoardConfigForm form, Errors errors) {
-
+    public String save(@Valid BoardConfigForm form, Errors errors, Model model) {
         String mode = form.getMode();
+        commonProcess(mode, model);
 
         if(errors.hasErrors()) {
-
+            return "admin/board/" + mode;
         }
 
         return "redirect:/admin/board";
