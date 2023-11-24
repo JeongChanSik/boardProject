@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.nio.charset.Charset;
 
@@ -55,7 +56,8 @@ public class BoardConfigTest { // 서버를 끈 상태로 하는 통합 테스�
                 .param("bName", "공지사항")
                 .with(csrf()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/admin/board"));
 
         // 실제 DB에도 설정 값이 있는지 체크
         Board board = boardRepository.findById("notice").orElse(null);
