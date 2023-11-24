@@ -3,16 +3,16 @@ package com.semiproject.controllers.boards;
 import com.semiproject.commons.MemberUtil;
 import com.semiproject.commons.ScriptExceptionProcess;
 import com.semiproject.commons.Utils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/board")
@@ -25,7 +25,9 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * 게시판 글쓰기
     * */
     @GetMapping("/write/{bId}")
-    public String write(@PathVariable String bId, Model model) { // @PathVariable : 경로변수일 때 사용
+    public String write(@PathVariable String bId, @ModelAttribute BoardForm form, Model model) { // @PathVariable : 경로변수일 때 사용
+        commonProcess(bId, "write", model);
+
         return utils.tpl("board/write");
     }
 
@@ -34,6 +36,7 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * */
     @GetMapping("/update/{seq}")
     public String update(@PathVariable Long seq, Model model) { // 게시글 번호 추가, model 추가
+
         return utils.tpl("board/update");
     }
 
@@ -41,7 +44,13 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * 게시글 저장
     * */
     @PostMapping("/save")
-    public String save(Model model) {
+    public String save(@Valid BoardForm form, Errors errors, Model model) { // 검증하기 위해 @Valid 추가
+        String mode = Objects.requireNonNullElse(form.getMode(), "write");
+        String bId = form.getBId();
+
+        if(errors.hasErrors()){
+            return utils.tpl("board/" + mode);
+        }
         return "redirect:/board/list/게시판ID";
     }
 
