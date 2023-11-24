@@ -11,6 +11,7 @@ spring:
     open-in-view: true
     properties:
       hibernate:
+        globally_quoted_identifiers: true
         # show_sql : 실행되는 쿼리를 콘솔에 출력하는 역할
         show_sql: true
         format_sql: true
