@@ -31,7 +31,7 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * 게시판 글쓰기
     * */
     @GetMapping("/write/{bId}")
-    public String write(@PathVariable String bId, @ModelAttribute BoardForm form, Model model) { // @PathVariable : 경로변수일 때 사용
+    public String write(@PathVariable("bId") String bId, @ModelAttribute BoardForm form, Model model) { // @PathVariable : 경로변수일 때 사용
         commonProcess(bId, "write", model);
 
         return utils.tpl("board/write");
@@ -41,7 +41,7 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * 게시판 수정
     * */
     @GetMapping("/update/{seq}")
-    public String update(@PathVariable Long seq, Model model) { // 게시글 번호 추가, model 추가
+    public String update(@PathVariable("seq") Long seq, Model model) { // 게시글 번호 추가, model 추가
 
         return utils.tpl("board/update");
     }
@@ -67,8 +67,8 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     /**
     * 게시글 보기
     * */
-    @GetMapping
-    public String view(@PathVariable Long seq, Model model) {
+    @GetMapping("/view/{seq}")
+    public String view(@PathVariable("seq") Long seq, Model model) {
 
         BoardData data = infoService.get(seq);
 
