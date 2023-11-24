@@ -3,6 +3,9 @@ package com.semiproject.controllers.boards;
 import com.semiproject.commons.MemberUtil;
 import com.semiproject.commons.ScriptExceptionProcess;
 import com.semiproject.commons.Utils;
+import com.semiproject.entities.BoardData;
+import com.semiproject.models.board.BoardInfoService;
+import com.semiproject.models.board.BoardSaveService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,9 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
 
     private final Utils utils;
     private final MemberUtil memberUtil;
+    private final BoardSaveService saveService;
+    private final BoardInfoService infoService;
+
     /**
     * 게시판 글쓰기
     * */
@@ -48,10 +54,14 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
         String mode = Objects.requireNonNullElse(form.getMode(), "write");
         String bId = form.getBId();
 
+        commonProcess(bId, mode, model);
+
         if(errors.hasErrors()){
             return utils.tpl("board/" + mode);
         }
-        return "redirect:/board/list/게시판ID";
+        saveService.save(form);
+
+        return "redirect:/board/list/" + bId;
     }
 
     /**
@@ -59,6 +69,10 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
     * */
     @GetMapping
     public String view(@PathVariable Long seq, Model model) {
+
+        BoardData data = infoService.get(seq);
+
+        model.addAttribute("boardData", data);
 
         return utils.tpl("board/view");
     }
