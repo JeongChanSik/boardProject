@@ -9,9 +9,9 @@ spring:
   # 데이터베이스 설정
   datasource:
     driverClassName: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:orcl
-    username: BOARD
-    password: 1111
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+    password: 1234
 
   # 파일 업로드 설정
   servlet:
@@ -20,7 +20,8 @@ spring:
       maxRequestSize: 40MB
 
   # 정적 자원 설정(CSS, JS, 이미지)
-  resources:
+  web:
+   resources:
     staticLocations: file:src/main/resources/static/
 
   # 라이브 리로드 설정

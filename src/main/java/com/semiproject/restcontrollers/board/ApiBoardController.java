@@ -23,7 +23,15 @@ public class ApiBoardController {
     private final BoardSaveService saveService;
     private final BoardInfoService infoService;
 
-    @PostMapping("/write/{bId}") // bId = @PathVariable bId 때문에 필요한 어노테이션
+    /**
+     * 게시글 작성 API
+     *
+     * @param bId   게시판 ID
+     * @param form  게시글 폼 데이터
+     * @param errors 검증 에러
+     * @return ResponseEntity
+     */
+    @PostMapping("/write/{bId}")
     public ResponseEntity write(@PathVariable("bId") String bId, @RequestBody @Valid BoardForm form, Errors errors) {
 
         if(errors.hasErrors()) {
@@ -38,6 +46,12 @@ public class ApiBoardController {
 
     }
 
+    /**
+     * 게시글 조회 API
+     *
+     * @param seq 게시글 일련번호
+     * @return JSONData
+     */
     @GetMapping("/view/{seq}")
     public JSONData<BoardData> view(@PathVariable("seq") Long seq) {
 

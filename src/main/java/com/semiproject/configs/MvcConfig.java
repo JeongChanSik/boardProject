@@ -13,13 +13,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ResourceBundle;
-
-@Configuration // 설정 객체
-@EnableJpaAuditing @EnableScheduling
+/**
+ * 웹 MVC 관련 설정을 담당하는 클래스입니다.
+ */
+@Configuration
+@EnableJpaAuditing
+@EnableScheduling
 @EnableConfigurationProperties(FileUploadConfig.class)
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -32,6 +33,11 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private SiteConfigInterceptor siteConfigInterceptor;
 
+    /**
+     * Interceptor를 등록하는 메서드입니다.
+     *
+     * @param registry InterceptorRegistry 객체
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(commonInterceptor)
@@ -41,22 +47,37 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**");
     }
 
+    /**
+     * 정적 리소스 핸들러를 등록하는 메서드입니다.
+     *
+     * @param registry ResourceHandlerRegistry 객체
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(fileUploadConfig.getUrl() + "**")
                 .addResourceLocations("file:///" + fileUploadConfig.getPath());
     }
 
+    /**
+     * HiddenHttpMethodFilter를 빈으로 등록하는 메서드입니다.
+     *
+     * @return HiddenHttpMethodFilter 빈 객체
+     */
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();
     }
 
+    /**
+     * MessageSource를 빈으로 등록하는 메서드입니다.
+     *
+     * @return MessageSource 빈 객체
+     */
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.addBasenames("messages.commons", "messages.validations","messages.errors");
+        ms.addBasenames("messages.commons", "messages.validations", "messages.errors");
 
         return ms;
     }
