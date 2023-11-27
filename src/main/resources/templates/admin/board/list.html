@@ -4,7 +4,52 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
+    <form name="frmList" method="POST" th:action="@{/admin/board}" target="ifrmProcess" autocomplete="off">
+        <table class="table-rows">
+            <thead>
+            <tr>
+                <th width="40">
+                    <input type="checkbox" class="checkall" id="checkall">
+                    <label for="checkall"></label>
+                </th>
+                <th width="200">게시판 아이디</th>
+                <th width="300">게시판 이름</th>
+                <th width="150">사용 여부</th>
+                <th width="200">글쓰기 권한</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${items == null || items.isEmpty()}">
+                    <td colspan="6" class="no_data">등록된 게시판이 없습니다.</td>
+                </tr>
+                <tr th:unless="${items == null || items.isEmpty()}"
+                    th:each="item, status : ${items}" th:object="${item}">
+                    <td>
+                        <input type="hidden" name="${'bId_' + status.index}" th:value="*{bId}">
+                        <input type="checkbox" name="idx" th:value="${status.index}" th:id="${'idx_' + status.index}">
+                        <label th:for="${'idx_' + status.index}"></label>
+                    </td>
+                    <td th:text="*{bId}"></td>
+                    <td>
+                        <input type="text" th:name="${'bName_' + status.index}" th:value="*{bName}">
+                    </td>
+                    <td>
+                        <select th:name="${'active_' + status.index}">
+                            <option value="true" th:selected="*{active}">사용</option>
+                            <option value="false" th:selected="*{!active}">미사용</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select th:name="${'authority_' + status.index}">
 
-    <th:block th:replace="~{common/_pagination::pagination}"></th:block>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <th:block th:if="${items != null && !items.isEmpty()}"
+    th:block th:replace="~{common/_pagination::pagination}"></th:block>
 </section>
 </html>
