@@ -2,6 +2,7 @@ package com.semiproject.controllers.admins;
 
 import com.semiproject.commons.ListData;
 import com.semiproject.commons.ScriptExceptionProcess;
+import com.semiproject.commons.constants.BoardAuthority;
 import com.semiproject.commons.menus.Menu;
 import com.semiproject.entities.Board;
 import com.semiproject.models.board.config.BoardConfigInfoService;
@@ -111,5 +112,7 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("menuCode", "board");
         model.addAttribute("submenus", Menu.gets("board"));
         model.addAttribute("subMenuCode", Menu.getSubMenuCode(request));
+
+        model.addAttribute("authorities", BoardAuthority.getList());
     }
 }

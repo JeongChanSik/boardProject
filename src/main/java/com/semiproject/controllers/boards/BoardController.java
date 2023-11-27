@@ -3,6 +3,7 @@ package com.semiproject.controllers.boards;
 import com.semiproject.commons.MemberUtil;
 import com.semiproject.commons.ScriptExceptionProcess;
 import com.semiproject.commons.Utils;
+import com.semiproject.commons.constants.BoardAuthority;
 import com.semiproject.entities.BoardData;
 import com.semiproject.models.board.BoardInfoService;
 import com.semiproject.models.board.BoardSaveService;
@@ -105,5 +106,9 @@ public class BoardController implements ScriptExceptionProcess { // 게시판 �
         model.addAttribute("addCommonScript", addCommonScript);
         model.addAttribute("addScript", addScript);
         model.addAttribute("pageTitle", pageTitle);
+
+
+        model.addAttribute("authorities", BoardAuthority.getList());
+
     }
 }
