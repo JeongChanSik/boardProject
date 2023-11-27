@@ -1,7 +1,10 @@
 package com.semiproject.controllers.admins;
 
+import com.semiproject.commons.ListData;
 import com.semiproject.commons.ScriptExceptionProcess;
 import com.semiproject.commons.menus.Menu;
+import com.semiproject.entities.Board;
+import com.semiproject.models.board.config.BoardConfigInfoService;
 import com.semiproject.models.board.config.BoardConfigSaveService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -20,10 +23,16 @@ public class BoardController implements ScriptExceptionProcess {
 
     private final HttpServletRequest request;
     private final BoardConfigSaveService saveService;
+    private final BoardConfigInfoService infoService;
 
     @GetMapping
-    public String list(Model model) {
+    public String list(@ModelAttribute BoardSearch search, Model model) {
         commonProcess("list", model);
+
+        ListData<Board> data = infoService.getList(search);
+
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination());
 
         return "admin/board/list";
     }
